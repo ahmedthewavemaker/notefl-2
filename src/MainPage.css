@@ -1,0 +1,45 @@
+.MainPage{
+   
+    background-color: navy;
+    color: gold;
+    flex-direction: column;
+    list-style-type: none;
+    padding: 0;
+    float: right;     
+    list-style: none;
+}
+
+.note {
+    --note-height: 120px;
+    background-color: #010d1e;
+    color: #cacaca;
+    height: var(--note-height);
+    margin-bottom: 8px;
+    max-width: 380px;
+    padding: 8px 0 8px 8px;
+    position: relative;
+    align-items: flex-start;
+  }
+  
+  .noteButton{
+      color:lawngreen;
+  }
+
+
+  
+
+a{
+    font-size: large;
+    font-weight: bold;
+    
+}
+
+a:hover{
+    color: green;
+}
+a:link{
+    color: gold;
+}
+a:visited{
+    color: darkgoldenrod;
+}
