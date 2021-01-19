@@ -18,7 +18,12 @@ class App extends Component {
     folders: store.folders,
 
   }
-componentDidMount(){
+  componentDidMount(){
+    this.getData()
+  }
+
+
+getData =()=> {
   Promise.all([
   fetch(`http://localhost:9090/folders`),
   fetch(`http://localhost:9090/notes`)
@@ -55,13 +60,13 @@ componentDidMount(){
     const contextValue= {
       notes: this.state.notes,
       folders: this.state.folders,
-      //deleteNote= this.handleDeleteNote
-
+      deleteNote: this.handleDeleteNote,
+      getData: this.getData
     }
 
 
     return (
-      <AppContext.Provider  value = {contextValue}>
+      <AppContext.Provider  value = {contextValue} >
        
       <div className='App'>
         <div className='App-header'>
@@ -78,18 +83,13 @@ componentDidMount(){
 
           <Route
             path='/folder/:folderId'
-            render={() =>
-              <Sidebar 
-              folders={this.state.folders} />
-            } />
+            component={Sidebar}
+         />
+
           <Route
             path='/note/:noteId'
-            render={(routerProps) =>
-              <GoBack 
-              {...routerProps}
-              
-              folders={this.state.folders}/>
-            } />
+            component={GoBack}
+            />
         </div>
 
         <div className='MainPage'>
@@ -102,6 +102,7 @@ componentDidMount(){
                 {...routerProps}
                 notes={this.state.notes}/>
               } />
+              
             <Route
               path='/folder/:folderId'
               render={(routerProps) =>
@@ -117,6 +118,7 @@ componentDidMount(){
                 {...routerProps}
                 notes={this.state.notes}/>
               } />
+              
 
           </main>
         </div>

@@ -51,24 +51,33 @@ export default class MainPage extends React.Component {
     static contextType = AppContext;
 
     handleDeleteNote = (noteId) => {
-        this.props.history.push(`/`)
+        
+
+        fetch(`http://localhost:9090/notes/${noteId}`,{
+            method: 'DELETE',
+             
+        })
+        this.context.getData()
+        
       }
+
+      
     
     render(){
-        const { notes=[] } = this.context;
-        const { noteId } = this.props.match.params
-    console.log(noteId, 'noteId')
+        let { notes=[] } = this.context;
+        const { folderId } = this.props.match.params
+    //console.log(noteId, 'noteId')
 
-    if(noteId.match.params.folderId){
-        notes=notes.filter(note => note.folderId === noteId.match.params.folderId)
+    if(folderId){
+        notes=notes.filter(note => note.folderId === folderId)
     }
-    console.log(noteId);
+    //console.log(noteId);
     return (
        <div className='Mainpage'>
           {notes.map(note => <div><li key={note.id} className='note'>
                 <h2><Link to={'/note/'+note.id} >{note.name}</Link></h2>
                 <h3>Date modified: {moment(note.modified).format('MM YYYY')}</h3>
-                <button className='noteButton' onClick={this.handleDeleteNote()}>Remove Note</button>
+                <button className='noteButton' onClick={e=>this.handleDeleteNote(note.id)}>Remove Note</button>
            </li> </div>)}
        </div>
     )}
